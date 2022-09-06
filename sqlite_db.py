@@ -2,7 +2,7 @@
 import sqlite3
 
 """Local functions"""
-from useful_functions import patients_data_to_json, pharmacies_data_to_json, trasactions_information_to_json
+from useful_functions import patients_data_to_json, pharmacies_data_to_json, trasactions_information_to_json, get_one_user
 
 
 def conectar_sqlite():
@@ -70,3 +70,20 @@ def select_trasactions_information():
     return dict_data
 
 
+def select_user_by_username_pass(username='', password=''):
+    conn = conectar_sqlite()
+    if conn is None:
+        dict_data = {'Error': 'Database error'}
+    else:
+        try:
+            cursor = conn.execute(f'''SELECT U.UUID, U.USERNAME, U.PASSWORD
+                                      FROM USERS AS U
+                                      WHERE U.USERNAME = "{username}" AND
+                                      U.PASSWORD = "{password}"''')
+            
+            dict_data = get_one_user(cursor)
+        except Exception as exc:
+            print(exc)
+            dict_data = {'Error': 'An exception occurred.'}
+        desconectar_sqlite(conn)
+    return dict_data

@@ -3,12 +3,14 @@ from flask import Flask, request, jsonify
 
 """Local functions"""
 from sqlite_db import select_patients_data, select_pharmacies_data, select_trasactions_information
+from auth_functions import auth, token_required
 
 
 app = Flask(__name__)
 
 
 @app.route('/patients', methods=['GET'])
+@token_required
 def patients_endpoint():
     """Endpoint onde serão listadas as informações dos pacientes."""
     if request.method == 'GET':
@@ -19,6 +21,7 @@ def patients_endpoint():
 
 
 @app.route('/pharmacies', methods=['GET'])
+@token_required
 def pharmacies_endpoint():
     """Endpoint onde serão listadas as informações das farmácias."""
     if request.method == 'GET':
@@ -28,7 +31,8 @@ def pharmacies_endpoint():
         return 'Request method not allowed'
 
 
-@app.route('/transactions')
+@app.route('/transactions', methods=['GET'])
+@token_required
 def transactions_endpoint():
     """Endpoint onde serão listadas as informações das transações."""
     if request.method == 'GET':
@@ -37,3 +41,12 @@ def transactions_endpoint():
     else:
         return 'Request method not allowed'
 
+
+@app.route('/auth', methods=['POST'])
+def authenticate():
+    """Endpoint onde a autenticação é realizada."""
+    if request.method == 'POST':
+        data = auth(request.authorization)
+        return data
+    else:
+        return 'Request method not allowed'

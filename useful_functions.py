@@ -38,3 +38,15 @@ def trasactions_information_to_json(rows):
         to_dict[row[7]].update({ 'data da transação' : row[9] })
     return to_dict
 
+def get_one_user(row):
+    to_dict = {}
+    try:
+        for r in row:
+            to_dict.update({ 'uuid': r[0] })
+            to_dict.update({ 'username': r[1] })
+            to_dict.update({ 'password': r[2] })
+    except Exception as exc:
+        print(exc)
+        to_dict = {'Error': 'User does not exist'}
+    return to_dict
+
