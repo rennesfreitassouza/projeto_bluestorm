@@ -3,7 +3,7 @@ from flask import request, jsonify, Blueprint
 
 """Local functions"""
 from bluestorm_api.sqlite_db import select_patients_data, select_pharmacies_data, select_trasactions_information
-from bluestorm_api.auth_functions import auth, token_required, generate_a_secret_key
+from bluestorm_api.auth_functions import auth, token_required
 
 
 bp = Blueprint('bluestorm_api', __name__)
@@ -16,8 +16,6 @@ def patients_endpoint():
     if request.method == 'GET':
         json_data = jsonify(select_patients_data())
         return json_data
-    else:
-        return 'Request method not allowed'
 
 
 @bp.route('/pharmacies', methods=['GET'])
@@ -27,8 +25,6 @@ def pharmacies_endpoint():
     if request.method == 'GET':
         json_data = jsonify(select_pharmacies_data())
         return json_data
-    else:
-        return 'Request method not allowed'
 
 
 @bp.route('/transactions', methods=['GET'])
@@ -38,11 +34,9 @@ def transactions_endpoint():
     if request.method == 'GET':
         json_data = jsonify(select_trasactions_information())
         return json_data
-    else:
-        return 'Request method not allowed'
 
 
-@bp.route('/auth', methods=['POST'])
+@bp.route('/auth', methods=['GET', 'POST'])
 def authenticate():
     """Endpoint onde a autenticação é realizada."""
     if request.method == 'POST':

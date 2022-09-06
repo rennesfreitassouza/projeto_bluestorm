@@ -5,9 +5,13 @@ import sqlite3
 from bluestorm_api.useful_functions import patients_data_to_json, pharmacies_data_to_json, trasactions_information_to_json, get_one_user
 
 
-def conectar_sqlite():
+DATABASE_PATH = 'bluestorm_api/backend_test.db'
+
+def conectar_sqlite(db_path=None):
     try:
-        conn = sqlite3.connect('bluestorm_api/backend_test.db')
+        if db_path is None:
+            db_path = DATABASE_PATH 
+        conn = sqlite3.connect(db_path)
     except Exception as exc:
         print(exc)
         return None
@@ -18,8 +22,8 @@ def desconectar_sqlite(conn):
     conn.close()
 
 
-def select_patients_data():
-    conn = conectar_sqlite()
+def select_patients_data(db_path=None):
+    conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'Error': 'Database error'}
     else:
@@ -34,8 +38,8 @@ def select_patients_data():
     return dict_data
 
 
-def select_pharmacies_data():
-    conn = conectar_sqlite()
+def select_pharmacies_data(db_path=None):
+    conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'Error': 'Database error'}
     else:
@@ -50,8 +54,8 @@ def select_pharmacies_data():
     return dict_data
 
 
-def select_trasactions_information():
-    conn = conectar_sqlite()
+def select_trasactions_information(db_path=None):
+    conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'Error': 'Database error'}
     else:
@@ -70,8 +74,8 @@ def select_trasactions_information():
     return dict_data
 
 
-def select_user_by_username_pass(username='', password=''):
-    conn = conectar_sqlite()
+def select_user_by_username_pass(username='', password='', db_path=None):
+    conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'Error': 'Database error'}
     else:
