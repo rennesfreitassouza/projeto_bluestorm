@@ -28,7 +28,7 @@ def test_auth_route_http_post_method_with_invalid_credentials(client):
 
 
 def test_auth_route_http_post_method_with_invalid_database(client):
-    """Caso de teste que cobriria o caso do banco de dados não poder ser criado e não existir. Para fazer este teste, trocar o nome da pasta do caminho para o banco de dados que está contido na variável global DATABASE_PATH no módulo bluestorm_api.sqlite_db. Apenas o teste manual é possivel."""
+    """Caso de teste que cobriria o caso do banco de dados não poder ser criado e não existir. Para fazer este teste, trocar o nome da pasta do caminho para o banco de dados que está contido na variável global DATABASE_PATH no módulo bluestorm_api.sqlite_db. Apenas com o teste manual isso é possível."""
     # credentials = b64encode(b'admin:admin').decode('utf-8')
     # response = client.post('/auth', headers={'Authorization': f'Basic {credentials}'})
     # data_dict = json.loads(response.data)

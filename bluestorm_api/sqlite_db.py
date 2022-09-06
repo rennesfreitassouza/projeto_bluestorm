@@ -91,3 +91,4 @@ def select_user_by_username_pass(username='', password='', db_path=None):
             dict_data = {'Error': 'An exception occurred.'}
         desconectar_sqlite(conn)
     return dict_data
+
