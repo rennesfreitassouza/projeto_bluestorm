@@ -45,9 +45,9 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
 
 `http://127.0.0.1:5000/auth` - uma requisição POST com Basic Auth precisa ser feita para que um token seja retornado por esse endpoint. O usuário `admin` e a senha `admin` já foram inseridos na tabela USERS do banco de dados bluestorm_api/backend_test.db para que a autenticação seja considerada válida e um token seja retornado para o usuário. Após realizar essa requisição, com esse tipo de autenticação e com esse usuário e senha, armazenar o token retornado para ser utilizado nas próximas requisições.
 
-`http://127.0.0.1:5000/patients?token=` após o sinal de igual, inserir o token obtido da rota ´http://127.0.0.1:5000/auth´. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de pacientes poderão ser obtidos.
+`http://127.0.0.1:5000/patients?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de pacientes poderão ser obtidos.
 
-`http://127.0.0.1:5000/pharmacies?token=` após o sinal de igual, inserir o token obtido da rota ´http://127.0.0.1:5000/auth´. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de farmácias poderão ser obtidos.
+`http://127.0.0.1:5000/pharmacies?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de farmácias poderão ser obtidos.
 
-`127.0.0.1:5000/transactions?token=` após o sinal de igual, inserir o token obtido da rota ´http://127.0.0.1:5000/auth´. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de transações poderão ser obtidos.
+`127.0.0.1:5000/transactions?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de transações poderão ser obtidos.
 
