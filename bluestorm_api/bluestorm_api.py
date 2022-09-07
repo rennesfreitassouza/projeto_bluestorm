@@ -53,3 +53,4 @@ def authenticate():
         return data
     else:
         return 'Request method not allowed'
+

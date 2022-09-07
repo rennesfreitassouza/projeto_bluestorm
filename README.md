@@ -58,4 +58,8 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
 - Opcional: adicionar os parâmetros `pa_first_name` e `ph_name` para realizar a busca no endpoint `/transactions`, respectivamente por meio do nome do paciente e do nome da farmácia. O endereço ficará `http://127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=`. O valor para o nome do paciente procurado deve ser adicionado após `&pa_first_name=` e o valor para o nome da farmácia procurada deve ser adicionado após `&ph_name=`.
 
 # Como executar os casos de teste:
-Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi considerado como objetivo inicial de desenvolvimento do projeto.
+Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
+
+`coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
+
+`coverage report` para ver o relatório de cobertura via linha de comando.
