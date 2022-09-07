@@ -51,3 +51,5 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
 
 `127.0.0.1:5000/transactions?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de transações poderão ser obtidos.
 
+# Como executar os casos de teste:
+Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi considerado como objetivo inicial de desenvolvimento do projeto.
