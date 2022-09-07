@@ -41,7 +41,7 @@ Por fim, executar a API REST:
 - `flask run`
 
 # Como fazer requisições para a API
-Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome Bluestorm.postman_collection.json pronta para ser utilizada pelo Postman pode ser encontrada neste repositório e está disponível no diretório raíz. A seguir, uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
+Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome `Bluestorm.postman_collection.json` pronta para ser utilizada pelo Postman pode ser encontrada neste repositório e está disponível no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
 
 `http://127.0.0.1:5000/auth` - uma requisição POST com Basic Auth precisa ser feita para que um token seja retornado por esse endpoint. O usuário `admin` e a senha `admin` já foram inseridos na tabela USERS do banco de dados bluestorm_api/backend_test.db para que a autenticação seja considerada válida e um token seja retornado para o usuário. Após realizar essa requisição, com esse tipo de autenticação e com esse usuário e senha, armazenar o token retornado para ser utilizado nas próximas requisições.
 
