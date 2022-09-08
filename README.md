@@ -28,13 +28,13 @@ Criar um virtual environment [1], ativá-lo [2] para então instalar os módulos
 
 - `python -m venv env` [1]
 
-- `env\Scripts\activate` [2]
+- `env\Scripts\activate` [2] ou `source env/bin/activate` [2]
 
 - `pip install -r requirements.txt` [3]
 
 Instanciar a variável ambiente FLASK_APP com o valor válido:
 
-- `set FLASK_APP=bluestorm_api`
+- `set FLASK_APP=bluestorm_api` ou `export FLASK_APP=bluestorm_api`
 
 Por fim, executar a API REST:
 
