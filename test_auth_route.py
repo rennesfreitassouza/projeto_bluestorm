@@ -9,7 +9,7 @@ from bluestorm_api.sqlite_db import DATABASE_PATH
 def test_auth_route_http_get_method(client):
     response = client.get('/auth')
     data_dict = json.loads(response.data)
-    assert {'MESSAGE': 'REQUEST METHOD NOT ALLOWED'} == data_dict, print(data_dict)
+    assert {'ERROR': 'REQUEST METHOD NOT ALLOWED'} == data_dict, print(data_dict)
 
 
 def test_auth_route_http_post_method_with_no_credentials(client):

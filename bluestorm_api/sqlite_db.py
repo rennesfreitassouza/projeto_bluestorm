@@ -26,7 +26,7 @@ def desconectar_sqlite(conn):
 def select_patients_data(first_name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
             cursor = conn.execute(f'''SELECT UUID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH
@@ -35,7 +35,7 @@ def select_patients_data(first_name='', db_path=None):
             dict_data = patients_data_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -43,7 +43,7 @@ def select_patients_data(first_name='', db_path=None):
 def select_pharmacies_data(name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
             cursor = conn.execute(f'''SELECT UUID, NAME, CITY
@@ -52,7 +52,7 @@ def select_pharmacies_data(name='', db_path=None):
             dict_data = pharmacies_data_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -60,7 +60,7 @@ def select_pharmacies_data(name='', db_path=None):
 def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
             cursor = conn.execute(f'''SELECT PA.UUID, PA.FIRST_NAME, PA.LAST_NAME, PA.DATE_OF_BIRTH,
@@ -74,7 +74,7 @@ def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
             dict_data = trasactions_information_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -82,7 +82,7 @@ def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
 def select_user_by_username_pass(username='', password='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
             cursor = conn.execute(f'''SELECT U.UUID, U.USERNAME, U.PASSWORD
@@ -93,7 +93,7 @@ def select_user_by_username_pass(username='', password='', db_path=None):
             dict_data = get_one_user(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 

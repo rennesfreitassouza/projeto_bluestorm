@@ -52,5 +52,5 @@ def authenticate():
         data = auth(request.authorization)
         return data
     else:
-        return jsonify({'MESSAGE': 'REQUEST METHOD NOT ALLOWED'})
+        return jsonify({'ERROR': 'REQUEST METHOD NOT ALLOWED'})
 
