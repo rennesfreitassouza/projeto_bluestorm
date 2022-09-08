@@ -66,7 +66,7 @@ def test_select_user_by_username_pass_exception(get_invalid_db_name):
 
 def test_select_user_by_username_pass_user_exception():
     retorno = select_user_by_username_pass(username='0000', password='1111')
-    assert 'Error' in retorno.keys(), print(retorno)
-    assert 'User with these credentials does not exist.' == retorno['Error'], print(retorno)
+    assert 'ERROR' in retorno.keys(), print(retorno)
+    assert 'USER WITH THESE CREDENTIALS DOES NOT EXIST' == retorno['ERROR'], print(retorno)
 
 

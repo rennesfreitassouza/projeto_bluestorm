@@ -78,6 +78,6 @@ def get_one_user(row):
         to_dict.update({'username': r[1]})
         to_dict.update({'password': r[2]})
     else:
-        to_dict = {'Error': 'User with these credentials does not exist.'}
+        to_dict = {'ERROR': 'USER WITH THESE CREDENTIALS DOES NOT EXIST'}
     return to_dict
 

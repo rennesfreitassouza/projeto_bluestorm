@@ -5,22 +5,22 @@ import json
 def test_pharmacies_route_http_get_method_without_token(client):
     response = client.get('/pharmacies')
     data_dict = json.loads(response.data)
-    assert {} == data_dict['data'], print(data_dict)
-    assert 'token is missing' == data_dict['message'], print(data_dict)
+    assert {} == data_dict['DATA'], print(data_dict)
+    assert 'TOKEN IS MISSING' == data_dict['MESSAGE'], print(data_dict)
 
 
 def test_pharmacies_route_http_get_method_with_invalid_token(client, get_valid_token):
     data_dict = get_valid_token
-    route_with_token = f'/pharmacies?token={data_dict["token"] + "a"}'
+    route_with_token = f'/pharmacies?token={data_dict["TOKEN"] + "a"}'
     response = client.get(route_with_token)
     data_dict = json.loads(response.data)
-    assert {} == data_dict['data'], print(data_dict)
-    assert 'token is invalid or expired' == data_dict['message'], print(data_dict)
+    assert {} == data_dict['DATA'], print(data_dict)
+    assert 'TOKEN IS INVALID OR EXPIRED' == data_dict['MESSAGE'], print(data_dict)
 
 
 def test_pharmacies_route_http_get_method_with_valid_token(client, get_valid_token):
     data_dict = get_valid_token
-    route_with_token = f'/pharmacies?token={data_dict["token"]}'
+    route_with_token = f'/pharmacies?token={data_dict["TOKEN"]}'
     response = client.get(route_with_token)
     data_dict = json.loads(response.data)
 
@@ -32,7 +32,7 @@ def test_pharmacies_route_http_get_method_with_valid_token(client, get_valid_tok
 
 def test_pharmacies_route_http_get_method_with_valid_token_and_name_param(client, get_valid_token):
     data_dict = get_valid_token
-    route_with_param = f'/pharmacies?token={data_dict["token"]}&name=DRôGa MáiS'
+    route_with_param = f'/pharmacies?token={data_dict["TOKEN"]}&name=DRôGa MáiS'
     response = client.get(route_with_param)
     data_dict = json.loads(response.data)
 
@@ -44,7 +44,7 @@ def test_pharmacies_route_http_get_method_with_valid_token_and_name_param(client
 
 def test_pharmacies_route_http_get_method_with_valid_token_and_name_param_no_data(client, get_valid_token):
     data_dict = get_valid_token
-    route_with_param = f'/pharmacies?token={data_dict["token"]}&name=NONAME'
+    route_with_param = f'/pharmacies?token={data_dict["TOKEN"]}&name=NONAME'
     response = client.get(route_with_param)
     data_dict = json.loads(response.data)
 

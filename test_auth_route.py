@@ -8,23 +8,24 @@ from bluestorm_api.sqlite_db import DATABASE_PATH
 
 def test_auth_route_http_get_method(client):
     response = client.get('/auth')
-    assert b'Request method not allowed' == response.data, print(response.data)
+    data_dict = json.loads(response.data)
+    assert {'MESSAGE': 'REQUEST METHOD NOT ALLOWED'} == data_dict, print(data_dict)
 
 
 def test_auth_route_http_post_method_with_no_credentials(client):
     credentials = b64encode(b'admin:').decode('utf-8')
     response = client.post('/auth', headers={'Authorization': f'Basic {credentials}'})
     data_dict = json.loads(response.data)
-    assert 'Basic auth="Login required"' == data_dict['WWW-Authenticate'], print(data_dict)
-    assert 'Could not verify' == data_dict['message'], print(data_dict)
+    assert 'BASIC AUTH="LOGIN REQUIRED"' == data_dict['WWW-AUTHENTICATE'], print(data_dict)
+    assert 'COULD NOT VERIFY' == data_dict['MESSAGE'], print(data_dict)
 
 
 def test_auth_route_http_post_method_with_invalid_credentials(client):
     credentials = b64encode(b'admin:adminNO').decode('utf-8')
     response = client.post('/auth', headers={'Authorization': f'Basic {credentials}'})
     data_dict = json.loads(response.data)
-    assert 'User with these credentials does not exist.' == data_dict['message'], print(data_dict)
-    assert {} == data_dict['data'], print(data_dict)
+    assert 'USER WITH THESE CREDENTIALS DOES NOT EXIST' == data_dict['MESSAGE'], print(data_dict)
+    assert {} == data_dict['DATA'], print(data_dict)
 
 
 def test_auth_route_http_post_method_with_invalid_database(client):
@@ -33,12 +34,12 @@ def test_auth_route_http_post_method_with_invalid_database(client):
     # response = client.post('/auth', headers={'Authorization': f'Basic {credentials}'})
     # data_dict = json.loads(response.data)
     """Aqui fica a representação em comentário em um assert do que deveria estar nos dados retornados em caso de o fluxo de código ter encontrado uma excessão devido ao problema no banco de dados já mencionado."""
-    # assert 'Database error' == data_dict['message'], print(data_dict)
+    # assert 'DATABASE ERROR' == data_dict['MESSAGE'], print(data_dict)
     pass
 
 
 def test_auth_route_http_post_method_with_valid_credentials(get_valid_token):
     data_dict = get_valid_token
-    assert 'exp' in data_dict.keys(), print(data_dict)
-    assert 'Validated successfully' == data_dict['message'], print(data_dict)
-    assert 'token' in data_dict.keys(), print(data_dict)
+    assert 'EXP' in data_dict.keys(), print(data_dict)
+    assert 'VALIDATED SUCCESSFULLY' == data_dict['MESSAGE'], print(data_dict)
+    assert 'TOKEN' in data_dict.keys(), print(data_dict)
