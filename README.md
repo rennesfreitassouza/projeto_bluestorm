@@ -40,6 +40,27 @@ Por fim, executar a API REST:
 
 - `flask run`
 
+# Como executar um container com a API
+Para executar um container docker com a API é necessário ter instalado localmente o Docker (docker.com).
+
+Para executar um container, comece executando o Docker. Então, clone este repositório:
+
+- `git clone https://github.com/rennesfreitassouza/projeto_bluestorm.git`
+
+Navege via linha de comando até o diretório criado após o download do repositório ser feito.
+
+- `cd projeto_bluestorm/`
+
+Execute o comando para construir a imagem Docker a partir do Docker file:
+
+- `docker build -t bluestorm_api:latest .`
+
+Pronto, a imagem está pronta para ser executada. Para executá-la em detached mode execute:
+
+- `docker run --name bluestorm_api -d -p 5000:5000 bluestorm_api:latest`
+
+Agora requisições já podem ser feitas para a API por meio da porta 5000.
+
 # Como fazer requisições para a API
 Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome `Bluestorm.postman_collection.json` pronta para ser utilizada pelo Postman pode ser encontrada no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
 
@@ -60,6 +81,6 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
 # Como executar os casos de teste:
 Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
 
-`coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
+- `coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
 
-`coverage report` para ver o relatório de cobertura via linha de comando.
+- `coverage report` para ver o relatório de cobertura via linha de comando.
