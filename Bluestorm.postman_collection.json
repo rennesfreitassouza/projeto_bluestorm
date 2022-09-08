@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a7ac82ce-7741-4b39-b415-f63596ffda4b",
+		"_postman_id": "027332e8-1bf5-4dba-9ff6-297f2812b3ba",
 		"name": "Bluestorm",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13946101"
@@ -49,7 +49,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/patients?token=",
+					"raw": "http://127.0.0.1:5000/patients?token=&first_name=",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -65,6 +65,10 @@
 						{
 							"key": "token",
 							"value": ""
+						},
+						{
+							"key": "first_name",
+							"value": ""
 						}
 					]
 				}
@@ -77,7 +81,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:5000/pharmacies?token=",
+					"raw": "http://127.0.0.1:5000/pharmacies?token=&name=",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -93,6 +97,10 @@
 						{
 							"key": "token",
 							"value": ""
+						},
+						{
+							"key": "name",
+							"value": ""
 						}
 					]
 				}
@@ -105,7 +113,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "127.0.0.1:5000/transactions?token=",
+					"raw": "127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=",
 					"host": [
 						"127",
 						"0",
@@ -119,6 +127,14 @@
 					"query": [
 						{
 							"key": "token",
+							"value": ""
+						},
+						{
+							"key": "pa_first_name",
+							"value": ""
+						},
+						{
+							"key": "ph_name",
 							"value": ""
 						}
 					]

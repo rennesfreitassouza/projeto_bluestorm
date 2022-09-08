@@ -3,11 +3,11 @@ Projeto para Bluestorm relativo ao processo seletivo para a vaga de back-end da 
 
 # Endpoints disponíveis
 
-`[POST]/auth` - endpoint onde uma autenticação é realizada. Uma requisição HTTP POST com método de autenticação Basic Auth precisa ser realizada para que o endpoint retorne dados com um token, uma mensagem e uma data de expiração desse token no formato JSON. Esse token deve ser utilizado em todas as outras requisições GET como parâmetro na URL para que dados válidos possam ser retornados ao usuário da API.  
+`[POST]/auth` - Este endpoint realiza uma autenticação. Uma requisição HTTP POST com método de autenticação Basic Auth precisa ser realizada para que o endpoint retorne dados com um token, uma mensagem e uma data de expiração desse token no formato JSON. Esse token deve ser utilizado em todas as outras requisições GET como parâmetro na URL para que dados válidos possam ser retornados ao usuário da API.  
 
-`[GET]/patients` - endpoint onde são listadas as informações dos pacientes. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID, nome, sobrenome e data de nascimento dos pacientes.
+`[GET]/patients` - Aqui são listadas as informações dos pacientes. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID, nome, sobrenome e data de nascimento dos pacientes.
 
-`[GET]/pharmacies` - endpoint onde são listadas as informações das farmácias. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID, nome e cidade das farmácias.
+`[GET]/pharmacies` - Neste são listadas as informações das farmácias. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID, nome e cidade das farmácias.
 
 `[GET]/transactions` - endpoint onde serão listadas as informações das transações realizadas entre os pacientes e as farmácias. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID do paciente, nome do paciente, sobrenome do paciente, data de nascimento do paciente, ID da farmácia, nome da farmácia, cidade da farmácia, ID da transação, quantidade da transação e data da transação.
 
@@ -41,15 +41,25 @@ Por fim, executar a API REST:
 - `flask run`
 
 # Como fazer requisições para a API
-Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome `Bluestorm.postman_collection.json` pronta para ser utilizada pelo Postman pode ser encontrada neste repositório e está disponível no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
+Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome `Bluestorm.postman_collection.json` pronta para ser utilizada pelo Postman pode ser encontrada no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
 
 `http://127.0.0.1:5000/auth` - uma requisição POST com Basic Auth precisa ser feita para que um token seja retornado por esse endpoint. O usuário `admin` e a senha `admin` já foram inseridos na tabela USERS do banco de dados bluestorm_api/backend_test.db para que a autenticação seja considerada válida e um token seja retornado para o usuário. Após realizar essa requisição, com esse tipo de autenticação e com esse usuário e senha, armazenar o token retornado para ser utilizado nas próximas requisições.
 
 `http://127.0.0.1:5000/patients?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de pacientes poderão ser obtidos.
 
+- Opcional: adicionar o parâmetro `first_name` para realizar a busca no endpoint `/patients` por meio do nome do paciente. O endereço ficará `http://127.0.0.1:5000/patients?token=&first_name=`. O valor para o nome do paciente procurado deve ser adicionado após `&first_name=`.
+
 `http://127.0.0.1:5000/pharmacies?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de farmácias poderão ser obtidos.
+
+- Opcional: adicionar o parâmetro `name` para realizar a busca no endpoint `/pharmacies` por meio do nome da farmácia. O endereço ficará `http://127.0.0.1:5000/pharmacies?token=&name=`. O valor para o nome da farmácia procurada deve ser adicionado após `&name=`.
 
 `127.0.0.1:5000/transactions?token=` após o sinal de igual, inserir o token obtido da rota `http://127.0.0.1:5000/auth`. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de transações poderão ser obtidos.
 
+- Opcional: adicionar os parâmetros `pa_first_name` e `ph_name` para realizar a busca no endpoint `/transactions`, respectivamente por meio do nome do paciente e do nome da farmácia. O endereço ficará `http://127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=`. O valor para o nome do paciente procurado deve ser adicionado após `&pa_first_name=` e o valor para o nome da farmácia procurada deve ser adicionado após `&ph_name=`.
+
 # Como executar os casos de teste:
-Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi considerado como objetivo inicial de desenvolvimento do projeto.
+Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
+
+`coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
+
+`coverage report` para ver o relatório de cobertura via linha de comando.

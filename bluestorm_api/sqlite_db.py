@@ -7,6 +7,7 @@ from bluestorm_api.useful_functions import patients_data_to_json, pharmacies_dat
 
 DATABASE_PATH = 'bluestorm_api/backend_test.db'
 
+
 def conectar_sqlite(db_path=None):
     try:
         if db_path is None:
@@ -22,54 +23,58 @@ def desconectar_sqlite(conn):
     conn.close()
 
 
-def select_patients_data(db_path=None):
+def select_patients_data(first_name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
-            cursor = conn.execute('''SELECT UUID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH
-                                    FROM PATIENTS''')
+            cursor = conn.execute(f'''SELECT UUID, FIRST_NAME, LAST_NAME, DATE_OF_BIRTH
+                                          FROM PATIENTS
+                                          WHERE FIRST_NAME LIKE "%{first_name}%"''')
             dict_data = patients_data_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
 
-def select_pharmacies_data(db_path=None):
+def select_pharmacies_data(name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
-            cursor = conn.execute('''SELECT UUID, NAME, CITY
-                                    FROM PHARMACIES''')
+            cursor = conn.execute(f'''SELECT UUID, NAME, CITY
+                                    FROM PHARMACIES
+                                    WHERE NAME LIKE "%{name}%"''')
             dict_data = pharmacies_data_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
 
-def select_trasactions_information(db_path=None):
+def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
-            cursor = conn.execute('''SELECT PA.UUID, PA.FIRST_NAME, PA.LAST_NAME, PA.DATE_OF_BIRTH,
+            cursor = conn.execute(f'''SELECT PA.UUID, PA.FIRST_NAME, PA.LAST_NAME, PA.DATE_OF_BIRTH,
                                     PH.UUID, PH.NAME, PH.CITY,
                                     T.UUID, T.AMOUNT, T.TIMESTAMP
                                     FROM PATIENTS AS PA, PHARMACIES AS PH, TRANSACTIONS AS T
                                     WHERE PA.UUID = T.PATIENT_UUID AND
-                                    PH.UUID = T.PHARMACY_UUID''')
+                                    PH.UUID = T.PHARMACY_UUID AND
+                                    PA.FIRST_NAME LIKE "%{pa_first_name}%" AND
+                                    PH.NAME LIKE "%{ph_name}%"''')
             dict_data = trasactions_information_to_json(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -77,7 +82,7 @@ def select_trasactions_information(db_path=None):
 def select_user_by_username_pass(username='', password='', db_path=None):
     conn = conectar_sqlite(db_path)
     if conn is None:
-        dict_data = {'Error': 'Database error'}
+        dict_data = {'ERROR': 'DATABASE ERROR'}
     else:
         try:
             cursor = conn.execute(f'''SELECT U.UUID, U.USERNAME, U.PASSWORD
@@ -88,7 +93,7 @@ def select_user_by_username_pass(username='', password='', db_path=None):
             dict_data = get_one_user(cursor)
         except Exception as exc:
             print(exc)
-            dict_data = {'Error': 'An exception occurred.'}
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
