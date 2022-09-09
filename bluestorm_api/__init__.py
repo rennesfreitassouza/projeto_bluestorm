@@ -1,11 +1,10 @@
-"""Third party functions"""
+"""Módulo utilizado para iniciar a execução da API."""
 from flask import Flask
-
-"""Local functions"""
 from bluestorm_api.auth_functions import generate_a_secret_key
 
 
 def create_app(test_config=None):
+    """Função cria um app Flask"""
     app = Flask(__name__)
     app.secret_key = generate_a_secret_key()
 
