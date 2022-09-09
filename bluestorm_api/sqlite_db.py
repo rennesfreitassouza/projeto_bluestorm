@@ -1,29 +1,32 @@
-"""Modules integrated with the Python interpreter"""
+"""Module with SQL Queries"""
 import sqlite3
-
-"""Local functions"""
-from bluestorm_api.useful_functions import patients_data_to_json, pharmacies_data_to_json, trasactions_information_to_json, get_one_user
+from bluestorm_api.useful_functions import patients_data_to_json, pharmacies_data_to_json
+from bluestorm_api.useful_functions import trasactions_information_to_json, get_one_user
 
 
 DATABASE_PATH = 'bluestorm_api/backend_test.db'
 
 
 def conectar_sqlite(db_path=None):
+    """Inicia uma conexão com o banco de dados SQLite. Retorna uma variável do tipo Connection."""
     try:
         if db_path is None:
             db_path = DATABASE_PATH 
         conn = sqlite3.connect(db_path)
     except Exception as exc:
-        print(exc)
+        print(type(exc), exc)
         return None
     return conn
 
 
 def desconectar_sqlite(conn):
+    """Encerra a conexão com o banco de dados SQLite"""
     conn.close()
 
 
 def select_patients_data(first_name='', db_path=None):
+    """Faz uma consulta relativa a dados de pacientes no banco de dados SQLite.
+       Retorna um dict com os dados retornados da consulta."""
     conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'ERROR': 'DATABASE ERROR'}
@@ -34,13 +37,15 @@ def select_patients_data(first_name='', db_path=None):
                                           WHERE FIRST_NAME LIKE "%{first_name}%"''')
             dict_data = patients_data_to_json(cursor)
         except Exception as exc:
-            print(exc)
+            print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
 
 def select_pharmacies_data(name='', db_path=None):
+    """Faz uma consulta relativa a dados de farmácias no banco de dados SQLite.
+       Retorna um dict com os dados retornados da consulta."""
     conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'ERROR': 'DATABASE ERROR'}
@@ -51,13 +56,16 @@ def select_pharmacies_data(name='', db_path=None):
                                     WHERE NAME LIKE "%{name}%"''')
             dict_data = pharmacies_data_to_json(cursor)
         except Exception as exc:
-            print(exc)
+            print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
 
 def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
+    """Faz uma consulta relativa a dados de pacientes, farmácias e transações
+       no banco de dados SQLite.
+       Retorna um dict com os dados retornados da consulta."""
     conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'ERROR': 'DATABASE ERROR'}
@@ -73,13 +81,15 @@ def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
                                     PH.NAME LIKE "%{ph_name}%"''')
             dict_data = trasactions_information_to_json(cursor)
         except Exception as exc:
-            print(exc)
+            print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
 
 def select_user_by_username_pass(username='', password='', db_path=None):
+    """Faz uma consulta com o banco de dados SQLite
+       Retorna um dict com os dados retornados da consulta."""
     conn = conectar_sqlite(db_path)
     if conn is None:
         dict_data = {'ERROR': 'DATABASE ERROR'}
@@ -89,11 +99,9 @@ def select_user_by_username_pass(username='', password='', db_path=None):
                                       FROM USERS AS U
                                       WHERE U.USERNAME = "{username}" AND
                                       U.PASSWORD = "{password}"''')
-            
             dict_data = get_one_user(cursor)
         except Exception as exc:
-            print(exc)
+            print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
-
