@@ -105,3 +105,21 @@ def select_user_by_username_pass(username='', password='', db_path=None):
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
+
+
+def insert_into_users(uuid='', username='', password='', db_path=None):
+    """Função que insere dados de um usuário na tabela USERS do banco de dados"""
+    conn = conectar_sqlite(db_path)
+    if conn is None:
+        dict_data = {'ERROR': 'DATABASE ERROR'}
+    else:
+        try:
+            conn.execute(f'''INSERT INTO USERS (UUID, USERNAME, PASSWORD)
+                             VALUES ("{uuid}", "{username}", "{password}" );''')
+            conn.commit()
+            dict_data = {'MESSAGE': 'USER ADDED'}
+        except Exception as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        desconectar_sqlite(conn)
+    return dict_data
