@@ -14,7 +14,7 @@ Projeto para Bluestorm relativo ao processo seletivo para a vaga de back-end da 
 # Como executar a API localmente
 Para executar a API localmente é necessário ter instalado:
 
-- `Python 3`
+- `Python 3.x`
 
 Então clonar este repositório:
 
@@ -41,7 +41,7 @@ Por fim, executar a API REST:
 - `flask run`
 
 # Como executar um container com a API
-Para executar um container docker com a API é necessário ter instalado localmente o Docker (docker.com).
+Para executar um container docker com a API é necessário ter instalado localmente o Docker (baixar em docker.com).
 
 Para executar um container, comece executando o Docker. Então, clone este repositório:
 
@@ -51,11 +51,11 @@ Navege via linha de comando até o diretório criado após o download do reposit
 
 - `cd projeto_bluestorm/`
 
-Execute o comando para construir a imagem Docker a partir do Docker file:
+Execute o comando a seguir como administrador para construir a imagem Docker a partir do Docker file:
 
 - `docker build -t bluestorm_api:latest .`
 
-Pronto, a imagem está pronta para ser executada. Para executá-la em detached mode execute:
+Pronto, a imagem está pronta para ser executada. Para executá-la em detached mode execute também como administrador:
 
 - `docker run --name bluestorm_api -d -p 5000:5000 bluestorm_api:latest`
 
