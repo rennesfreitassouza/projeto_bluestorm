@@ -8,8 +8,8 @@ from bluestorm_api import create_app
 @pytest.fixture
 def app():
     """Função inicia a execução da API"""
-    app = create_app()
-    yield app
+    flask_app = create_app()
+    yield flask_app
 
 
 @pytest.fixture
@@ -23,6 +23,11 @@ def client(app):
 
 @pytest.fixture
 def cli_runner(app):
+    """Função usada para retornar um objeto do tipo
+    FlaskCliRunner que passa o app Flask para o
+    CLI automaticamente. 'Use its invoke() method
+    to call commands in the same way they would
+    be called from the command line.'"""
     return app.test_cli_runner()
 
 

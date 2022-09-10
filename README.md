@@ -55,7 +55,7 @@ Execute o comando a seguir como administrador para construir a imagem Docker e e
 
 - `docker-compose up -d --build`
 
-Agora requisições já podem ser feitas para a API por meio da porta 5000.
+Agora requisições já podem ser feitas para a API por meio do endereço 127.0.0.1, na porta 5000.
 
 # Como fazer requisições para a API
 Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome `Bluestorm.postman_collection.json` pronta para ser utilizada pelo Postman pode ser encontrada no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
@@ -80,11 +80,14 @@ A REST API também permite que alguns comandos customizados sejam executados via
 
 - `flask about` ou `docker-compose exec web flask about`- Apresenta informações sobre o autor do projeto.
 
-- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt.
+- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask adduser --user admin --password teste_@dmin` ou `docker-compose exec web flask adduser --user admin --password teste_@dmin` adiciona o usuário admin com senha teste_@dmin na tabela USERS.
 
 # Como executar os casos de teste:
-Executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 98% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
+Uma das formas de executar os casos de teste é executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest` ou mesmo analisando [a saída com nome Test de uma das instruções de teste executada no GitHub Actions](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8285820852?check_suite_focus=true). Diversos casos de teste foram desenvolvidos para o código da API e cobrem 98% [(observar saída Coverage do GitHub Actions)](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8285820852?check_suite_focus=true) de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
 
 - `coverage run -m pytest` ou `docker-compose exec web coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
 
 - `coverage report` ou  `docker-compose exec web coverage report` para ver o relatório de cobertura via linha de comando.
+
+# Considerações finais
+Para garantir que o código do projeto se adequasse aos padrões e estilo de código sugeridos pela comunidade, foi utilizado o (Pylint)[https://github.com/PyCQA/pylint]. Também gostaria de agradecer a empresa (Bluestorm)[https://www.bluestorm.com.br/] pelo gratificante desafio.
