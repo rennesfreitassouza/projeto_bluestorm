@@ -59,8 +59,10 @@ def test_transactions_route_http_get_method_with_valid_token_and_pa_first_name_a
     assert 'TRAN0081' == data_dict['TRAN0081']['ID DA TRANSACAO'], print(data_dict)
     assert 'PATIENT0001' == data_dict['TRAN0081']['ID DO PACIENTE'], print(data_dict)
     assert 'SAO PAULO' == data_dict['TRAN0081']['CIDADE DA FARMACIA'], print(data_dict)
-    assert '2020-12-21 06:08:47.000000' == data_dict['TRAN0081']['DATA DA TRANSACAO'], print(data_dict)
-    assert '1996-10-25 00:00:00.000000' == data_dict['TRAN0081']['DATA DE NASCIMENTO DO PACIENTE'], print(data_dict)
+    assert ('2020-12-21 06:08:47.000000' ==
+             data_dict['TRAN0081']['DATA DA TRANSACAO']), print(data_dict)
+    assert ('1996-10-25 00:00:00.000000' ==
+     data_dict['TRAN0081']['DATA DE NASCIMENTO DO PACIENTE']), print(data_dict)
     assert 'DROGA MAIS' == data_dict['TRAN0081']['NOME DA FARMACIA'], print(data_dict)
     assert 'JOANA' == data_dict['TRAN0081']['NOME DO PACIENTE'], print(data_dict)
     assert str(17.05) == data_dict['TRAN0081']['QUANTIDADE DA TRANSACAO'], print(data_dict)
@@ -79,4 +81,3 @@ def test_transactions_route_http_get_method_with_valid_token_and_pa_first_name_a
 
     assert 'ERROR' in data_dict.keys(), print(data_dict)
     assert 'NO DATA FOUND' == data_dict['ERROR'], print(data_dict)
-

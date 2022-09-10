@@ -52,7 +52,7 @@ def test_pharmacies_route_http_get_method_with_valid_token_and_name_param(client
     assert 'DROGA MAIS' == data_dict['PHARM0001']['NOME'], print(data_dict)
 
 
-def test_pharmacies_route_http_get_method_with_valid_token_and_name_param_no_data(client, get_valid_token):
+def test_pharmacies_route_with_valid_token_and_name_param_no_data(client, get_valid_token):
     """Caso de teste que verifica os dados retornados pela
     rota /pharmacies caso uma requisição HTTP GET com um token válido e com
     um parâmetro name igual a NONAME for feita para este endpoint."""
@@ -63,4 +63,3 @@ def test_pharmacies_route_http_get_method_with_valid_token_and_name_param_no_dat
 
     assert 'ERROR' in data_dict.keys(), print(data_dict)
     assert 'NO DATA FOUND' == data_dict['ERROR'], print(data_dict)
-

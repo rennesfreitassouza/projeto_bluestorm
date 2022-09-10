@@ -1,7 +1,6 @@
 """Auxiliary functions for the bluestorm_api.sqlite_db module"""
 
 
-
 def patients_data_to_json(rows):
     """Função percorre uma variável do tipo Cursor.
        Retorna um dict com os dados do Cursor ou com uma mensagem de erro."""

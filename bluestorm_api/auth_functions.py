@@ -54,12 +54,12 @@ def auth(authorization):
                 'WWW-AUTHENTICATE': 'BASIC AUTH="LOGIN REQUIRED"'}
         return jsonify(auth_error), 401
     user_data = select_user_by_username_pass(authorization.username, authorization.password)
-    if 'ERROR' in user_data.keys():
+    if 'ERROR' in user_data:
         auth_error = {'MESSAGE': user_data['ERROR'], 'DATA': {}}
         return jsonify(auth_error), 401
-    elif ('uuid' in user_data.keys() and
-          'username' in user_data.keys() and
-          'password' in user_data.keys()):
+    if ('uuid' in user_data and
+          'username' in user_data and
+          'password' in user_data):
         exp = datetime.now() + timedelta(hours=12)
         secret_key()
         token = jwt.encode({ 'username': user_data['username'], 'exp': exp },
@@ -75,14 +75,14 @@ def token_required(func):
     """Função contém um decorator que realiza a decodificação de um token jwt.
     Retorna um JSON em caso de incondormidades em encontrar ou decodificar o token."""
     @wraps(func)
-    def decorated(*args, **kwargs):
+    def decorated():
         token = request.args.get('token')
         if not token:
             error_message = {'MESSAGE': 'TOKEN IS MISSING', 'DATA': {}}
             return jsonify(error_message), 401
         try:
-            data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
-        except Exception as exc:
+            jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        except jwt.exceptions.InvalidSignatureError as exc:
             print(type(exc), exc)
             error_message = {'MESSAGE': 'TOKEN IS INVALID OR EXPIRED', 'DATA': {}}
             return jsonify(error_message), 401
