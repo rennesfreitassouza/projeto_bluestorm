@@ -3,7 +3,7 @@ from getpass import getpass
 import click
 from flask import Flask
 from bluestorm_api.auth_functions import generate_a_secret_key
-from bluestorm_api.sqlite_db import insert_into_users
+from bluestorm_api.sqlite_db import insert_into_users, remove_from_users
 
 
 def create_app(test_config=None):
@@ -67,7 +67,23 @@ def adduser(user='', password=''):
     print (retorno)
 
 
+@click.command(name='removeuser')
+@click.option('--user', default='')
+@click.option('--password', default='')
+def removeuser(user='', password=''):
+    """Função faz a coleta de informações de usuário (nome e senha)
+    para deletar o mesmo da tabela USERS do banco de dados."""
+    while user == '':
+        print('New user:', end=' ')
+        user = input()
+    while password == '':
+        password = getpass('Password:')
+    retorno = remove_from_users(username=user, password=password)
+    print (retorno)
+
+
 app = create_app()
 app.cli.add_command(endpoints)
 app.cli.add_command(about)
 app.cli.add_command(adduser)
+app.cli.add_command(removeuser)

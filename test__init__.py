@@ -1,7 +1,6 @@
 """Módulo com os casos de teste para o módulo bluestorm_api.__init__"""
-from bluestorm_api import endpoints, about, adduser
+from bluestorm_api import endpoints, about, adduser, removeuser
 from bluestorm_api.sqlite_db import select_user_by_username_pass
-from bluestorm_api.sqlite_db import conectar_sqlite, desconectar_sqlite
 
 
 def test_endpoints_function(cli_runner):
@@ -47,32 +46,20 @@ Mais informações em: https://github.com/rennesfreitassouza/projeto_bluestorm/e
 
 def test_adduser_function(cli_runner):
     """Caso de teste que verifica se o output retornado
-    pela simulação do comando 
+    pela simulação dos comandos
     "flask adduser --user test_user --password test_password"
+    e
+    "flask removeuser --user test_user --password test_password"
     que seria executado via linha de comando corresponde ao esperado."""
     runner = cli_runner
 
     user = 'test_user'
     password = 'test_password'
     result = runner.invoke(adduser, ['--user', f'{user}', '--password', f'{password}'])
-    assert str({'MESSAGE': 'USER ADDED'}) in result.output
+    assert str({'MESSAGE': 'USER ADDED'}) in result.output, print(result.output)
     data_dict = select_user_by_username_pass(username=user, password=password)
     assert user == data_dict['username'], print(data_dict)
     assert password == data_dict['password'], print(data_dict)
 
-    conn = conectar_sqlite()
-    if conn is None:
-        dict_data = {'ERROR': 'DATABASE ERROR'}
-        assert False, print(dict_data)
-    else:
-        try:
-            conn.execute(f'''DELETE FROM USERS
-                            WHERE USERNAME = "{user}" AND
-                            PASSWORD = "{password}"''')
-            conn.commit()
-        except Exception as exc:
-            print(type(exc), exc)
-            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
-            assert False, print(dict_data)
-        desconectar_sqlite(conn)
-    assert True
+    result = runner.invoke(removeuser, ['--user', f'{user}', '--password', f'{password}'])
+    assert str({'MESSAGE': 'USER DELETED'}) in result.output, print(result.output)
