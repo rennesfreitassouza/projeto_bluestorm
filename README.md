@@ -90,4 +90,4 @@ Uma das formas de executar os casos de teste é executar o pytest no diretório 
 - `coverage report` ou  `docker-compose exec web coverage report` para ver o relatório de cobertura via linha de comando.
 
 # Considerações finais
-Para garantir que o código do projeto se adequasse aos padrões e estilo de código sugeridos pela comunidade, foi utilizado o (Pylint)[https://github.com/PyCQA/pylint]. Também gostaria de agradecer a empresa (Bluestorm)[https://www.bluestorm.com.br/] pelo gratificante desafio.
+Para garantir que o código do projeto se adequasse aos padrões e estilo de código sugeridos pela comunidade, foi utilizado o [Pylint](https://github.com/PyCQA/pylint). Também gostaria de agradecer a [empresa Bluestorm](https://www.bluestorm.com.br/) pelo gratificante desafio.
