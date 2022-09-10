@@ -43,7 +43,7 @@ Por fim, executar a API REST:
 # Como executar um container com a API
 Para executar um container docker com a API é necessário ter instalado localmente o Docker (baixar em docker.com).
 
-Para executar um container, comece executando o Docker. Então, clone este repositório:
+Para executar um container, comece executando o Docker (Docker daemon). Então, clone este repositório:
 
 - `git clone https://github.com/rennesfreitassouza/projeto_bluestorm.git`
 
@@ -51,13 +51,9 @@ Navege via linha de comando até o diretório criado após o download do reposit
 
 - `cd projeto_bluestorm/`
 
-Execute o comando a seguir como administrador para construir a imagem Docker a partir do Docker file:
+Execute o comando a seguir como administrador para construir a imagem Docker e executar o container com a API:
 
-- `docker build -t bluestorm_api:latest .`
-
-Pronto, a imagem está pronta para ser executada. Para executá-la em detached mode execute também como administrador:
-
-- `docker run --name bluestorm_api -d -p 5000:5000 bluestorm_api:latest`
+- `docker-compose up -d --build`
 
 Agora requisições já podem ser feitas para a API por meio da porta 5000.
 
@@ -79,12 +75,12 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
   - Opcional: adicionar os parâmetros `pa_first_name` e `ph_name` para realizar a busca no endpoint `/transactions`, respectivamente por meio do nome do paciente e do nome da farmácia. O endereço ficará `http://127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=`. O valor para o nome do paciente procurado deve ser adicionado após `&pa_first_name=` e o valor para o nome da farmácia procurada deve ser adicionado após `&ph_name=`.
 
 # Comandos via linha de comando
-A REST API também permite que alguns comandos customizados sejam executados via linha de comando. Eles foram criados para facilitar o desenvolvimento e a utilização do serviço local.
-- `flask endpoints` - Apresenta informações sobre os endpoints.
+A REST API também permite que alguns comandos customizados sejam executados via linha de comando. Eles foram criados para facilitar no desenvolvimento do projeto e facilitar a utilização do serviço local.
+- `flask endpoints` ou `docker-compose exec web flask endpoints` - Apresenta informações sobre os endpoints.
 
-- `flask about` - Apresenta informações sobre o autor do projeto.
+- `flask about` ou `docker-compose exec web flask about`- Apresenta informações sobre o autor do projeto.
 
-- `flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt.
+- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt.
 
 # Como executar os casos de teste:
 Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
