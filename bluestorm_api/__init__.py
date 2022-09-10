@@ -74,7 +74,7 @@ def removeuser(user='', password=''):
     """Função faz a coleta de informações de usuário (nome e senha)
     para deletar o mesmo da tabela USERS do banco de dados."""
     while user == '':
-        print('New user:', end=' ')
+        print('User:', end=' ')
         user = input()
     while password == '':
         password = getpass('Password:')

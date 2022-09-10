@@ -80,7 +80,10 @@ A REST API também permite que alguns comandos customizados sejam executados via
 
 - `flask about` ou `docker-compose exec web flask about`- Apresenta informações sobre o autor do projeto.
 
-- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados de um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask adduser --user admin --password teste_@dmin` ou `docker-compose exec web flask adduser --user admin --password teste_@dmin` adiciona o usuário admin com senha teste_@dmin na tabela USERS.
+- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados de um novo usuário (username e passworld) sejam inseridos na tabela USERS para serem usados para obtenção de um token jwt. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask adduser --user admin --password teste_@dmin` ou `docker-compose exec web flask adduser --user admin --password teste_@dmin` adiciona o usuário admin com senha teste_@dmin na tabela USERS.
+
+- `flask removeuser` ou `docker-compose exec web flask removeuser` - Permite que dados de um usuário (username e passworld) sejam removidos da tabela USERS. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask removeuser --user admin --password teste_@dmin` ou `docker-compose exec web flask removeuser --user admin --password teste_@dmin` remove o usuário admin com senha teste_@dmin da tabela USERS.
+
 
 # Como executar os casos de teste:
 Uma das formas de executar os casos de teste é executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest` ou mesmo analisando [a saída com nome Test de uma das instruções de teste executada no GitHub Actions](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288049797?check_suite_focus=true). Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% [(observar saída Coverage do GitHub Actions)](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288049797?check_suite_focus=true) de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
