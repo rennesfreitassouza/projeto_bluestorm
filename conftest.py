@@ -14,11 +14,16 @@ def app():
 
 @pytest.fixture
 def client(app):
-    """Função instancia valor para um atributo de app 
+    """Função instancia valor para um atributo de app
     relativo a testes e retorna um objeto também relativo
     a testes por meio de app.test_client()"""
     app.testing = True
     return app.test_client()
+
+
+@pytest.fixture
+def cli_runner(app):
+    return app.test_cli_runner()
 
 
 @pytest.fixture

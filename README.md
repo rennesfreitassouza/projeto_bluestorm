@@ -83,8 +83,8 @@ A REST API também permite que alguns comandos customizados sejam executados via
 - `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt.
 
 # Como executar os casos de teste:
-Executar o pytest no diretório raiz com `pytest -vv`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 99% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
+Executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest`. Diversos casos de teste foram desenvolvidos para o código da API e cobrem 98% de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
 
-- `coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
+- `coverage run -m pytest` ou `docker-compose exec web coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
 
-- `coverage report` para ver o relatório de cobertura via linha de comando.
+- `coverage report` ou  `docker-compose exec web coverage report` para ver o relatório de cobertura via linha de comando.

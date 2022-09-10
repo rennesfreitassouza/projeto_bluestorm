@@ -1,26 +1,17 @@
-"""Módulo utilizado antes ou no início da execução da API."""
-from getpass import getpass
-import click
-from flask import Flask
-from bluestorm_api.auth_functions import generate_a_secret_key
-from bluestorm_api.sqlite_db import insert_into_users
+"""Módulo com os casos de teste para o módulo bluestorm_api.__init__"""
+from bluestorm_api import endpoints, about, adduser
+from bluestorm_api.sqlite_db import select_user_by_username_pass
+from bluestorm_api.sqlite_db import conectar_sqlite, desconectar_sqlite
 
 
-def create_app(test_config=None):
-    """Função cria um app Flask"""
-    flask_app = Flask(__name__)
-    flask_app.secret_key = generate_a_secret_key()
+def test_endpoints_function(cli_runner):
+    """Caso de teste que verifica se o output retornado
+    pela simulação do comando "flask endpoints" que seria executado
+    via linha de comando corresponde ao esperado."""
+    runner = cli_runner
 
-    from . import bluestorm_api
-    flask_app.register_blueprint(bluestorm_api.bp)
-
-    return flask_app
-
-
-@click.command(name='endpoints')
-def endpoints():
-    """Sobre os endpoints. Função criada para facilitar a utilização do serviço local."""
-    print('''### Como fazer requisições para a API ###
+    result = runner.invoke(endpoints)
+    assert '''### Como fazer requisições para a API ###
 Para facilitar a interação com os endpoints do projeto, recomenda-se que o software Postman seja utilizado. Uma collection com o nome Bluestorm.postman_collection.json pronta para ser utilizada pelo Postman pode ser encontrada no diretório raíz. A seguir, há uma breve explicação de como devem ser feitas as requisições para que dados válidos sejam retornados pela API REST privada.
 
 - http://127.0.0.1:5000/auth - uma requisição POST com Basic Auth precisa ser feita para que um token seja retornado por esse endpoint. O usuário admin e a senha admin já foram inseridos na tabela USERS do banco de dados bluestorm_api/backend_test.db para que a autenticação seja considerada válida e um token seja retornado para o usuário. Após realizar essa requisição, com esse tipo de autenticação e com esse usuário e senha, armazenar o token retornado para ser utilizado nas próximas requisições.
@@ -36,38 +27,52 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
 - 127.0.0.1:5000/transactions?token= após o sinal de igual, inserir o token obtido da rota http://127.0.0.1:5000/auth. Assim, ao realizar uma requisição HTTP GET para esse endereço, dados válidos de transações poderão ser obtidos.
   - Opcional: adicionar os parâmetros pa_first_name e ph_name para realizar a busca no endpoint /transactions, respectivamente por meio do nome do paciente e do nome da farmácia. O endereço ficará http://127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=. O valor para o nome do paciente procurado deve ser adicionado após &pa_first_name= e o valor para o nome da farmácia procurada deve ser adicionado após &ph_name=.
   
-- Mais sobre a utilização da API em: https://github.com/rennesfreitassouza/projeto_bluestorm/edit/main/README.md''')
+- Mais sobre a utilização da API em: https://github.com/rennesfreitassouza/projeto_bluestorm/edit/main/README.md''' in result.output, print(result.output)
 
 
-@click.command(name='about')
-def about():
-    """Sobre o autor da API. Função criada para facilitar
-    o futuro desevolvimento da API por terceiros."""
-    print('''### About ###
+def test_about_function(cli_runner):
+    """Caso de teste que verifica se o output retornado
+    pela simulação do comando "flask about" que seria executado
+    via linha de comando corresponde ao esperado."""
+    runner = cli_runner
+
+    result = runner.invoke(about)
+    assert '''### About ###
 Projeto desenvolvido por: Rennes Freitas Souza
 Contato: rennesfrso@gmail.com
 REST API desenvolvida para vaga back-end da empresa Bluestorm.
-Mais informações em: https://github.com/rennesfreitassouza/projeto_bluestorm/edit/main/README.md''')
+Mais informações em: https://github.com/rennesfreitassouza/projeto_bluestorm/edit/main/README.md''' in result.output, print(result.output)
 
 
-@click.command(name='adduser')
-@click.option('--user', default='')
-@click.option('--password', default='')
-def adduser(user='', password=''):
-    """Função faz a coleta de informações de usuário (nome e senha)
-    para inserir no banco de dados. Esses dados podem ser usados para
-    gerar um token com segurança."""
-    while user == '':
-        print('New user:', end=' ')
-        user = input()
-    while password == '':
-        password = getpass('Password:')
-    uuid = generate_a_secret_key()
-    retorno = insert_into_users(uuid, user, password)
-    print (retorno)
 
+def test_adduser_function(cli_runner):
+    """Caso de teste que verifica se o output retornado
+    pela simulação do comando 
+    "flask adduser --user test_user --password test_password"
+    que seria executado via linha de comando corresponde ao esperado."""
+    runner = cli_runner
 
-app = create_app()
-app.cli.add_command(endpoints)
-app.cli.add_command(about)
-app.cli.add_command(adduser)
+    user = 'test_user'
+    password = 'test_password'
+    result = runner.invoke(adduser, ['--user', f'{user}', '--password', f'{password}'])
+    assert str({'MESSAGE': 'USER ADDED'}) in result.output
+    data_dict = select_user_by_username_pass(username=user, password=password)
+    assert user == data_dict['username'], print(data_dict)
+    assert password == data_dict['password'], print(data_dict)
+
+    conn = conectar_sqlite()
+    if conn is None:
+        dict_data = {'ERROR': 'DATABASE ERROR'}
+        assert False, print(dict_data)
+    else:
+        try:
+            conn.execute(f'''DELETE FROM USERS
+                            WHERE USERNAME = "{user}" AND
+                            PASSWORD = "{password}"''')
+            conn.commit()
+        except Exception as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+            assert False, print(dict_data)
+        desconectar_sqlite(conn)
+    assert True
