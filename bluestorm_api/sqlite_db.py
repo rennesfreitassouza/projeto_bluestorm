@@ -123,4 +123,24 @@ def insert_into_users(uuid='', username='', password='', db_path=None):
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
+
+
+def remove_from_users(username='', password='', db_path=None):
+    """Função que remove dados de usuários com username e password
+    corresponde aos de users da tabela USERS do banco de dados."""
+    conn = conectar_sqlite(db_path)
+    if conn is None:
+        dict_data = {'ERROR': 'DATABASE ERROR'}
+    else:
+        try:
+            conn.execute(f'''DELETE FROM USERS
+                            WHERE USERNAME = "{username}" AND
+                            PASSWORD = "{password}"''')
+            conn.commit()
+            dict_data = {'MESSAGE': 'USER DELETED'}
+        except sqlite3.OperationalError as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        desconectar_sqlite(conn)
+    return dict_data
     
