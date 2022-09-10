@@ -86,5 +86,13 @@ def token_required(func):
             print(type(exc), exc)
             error_message = {'MESSAGE': 'TOKEN IS INVALID OR EXPIRED', 'DATA': {}}
             return jsonify(error_message), 401
+        except jwt.exceptions.DecodeError as exc:
+            print(type(exc), exc)
+            error_message = {'MESSAGE': 'TOKEN IS INVALID OR EXPIRED', 'DATA': {}}
+            return jsonify(error_message), 401
+        except Exception as exc:
+            print(type(exc), exc)
+            error_message = {'MESSAGE': 'TOKEN IS INVALID OR EXPIRED', 'DATA': {}}
+            return jsonify(error_message), 401
         return func()
     return decorated
