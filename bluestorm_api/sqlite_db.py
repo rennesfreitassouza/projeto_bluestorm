@@ -16,6 +16,9 @@ def conectar_sqlite(db_path=None):
     except sqlite3.OperationalError as exc:
         print(type(exc), exc)
         return None
+    except Exception as exc:
+        print(type(exc), exc)
+        return None
     return conn
 
 
@@ -39,6 +42,9 @@ def select_patients_data(first_name='', db_path=None):
         except sqlite3.OperationalError as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -56,6 +62,9 @@ def select_pharmacies_data(name='', db_path=None):
                                     WHERE NAME LIKE "%{name}%"''')
             dict_data = pharmacies_data_to_json(cursor)
         except sqlite3.OperationalError as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
@@ -83,6 +92,9 @@ def select_trasactions_information(pa_first_name='', ph_name='', db_path=None):
         except sqlite3.OperationalError as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -103,6 +115,9 @@ def select_user_by_username_pass(username='', password='', db_path=None):
         except sqlite3.OperationalError as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
     return dict_data
 
@@ -119,6 +134,9 @@ def insert_into_users(uuid='', username='', password='', db_path=None):
             conn.commit()
             dict_data = {'MESSAGE': 'USER ADDED'}
         except sqlite3.OperationalError as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
@@ -139,6 +157,9 @@ def remove_from_users(username='', password='', db_path=None):
             conn.commit()
             dict_data = {'MESSAGE': 'USER DELETED'}
         except sqlite3.OperationalError as exc:
+            print(type(exc), exc)
+            dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
+        except Exception as exc:
             print(type(exc), exc)
             dict_data = {'ERROR': 'AN EXCEPTION OCCURRED'}
         desconectar_sqlite(conn)
