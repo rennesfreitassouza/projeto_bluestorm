@@ -57,12 +57,10 @@ def adduser():
     gerar um token com segurança."""
     print('New user:', end=' ')
     user = input()
-    print(user)
     passworld = getpass('Password:')
     uuid = generate_a_secret_key()
     retorno = insert_into_users(uuid, user, passworld)
     print (retorno)
-
 
 
 app = create_app()
