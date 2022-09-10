@@ -9,7 +9,7 @@ Projeto para Bluestorm relativo ao processo seletivo para a vaga de back-end da 
 
 `[GET]/pharmacies` - Neste são listadas as informações das farmácias. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID, nome e cidade das farmácias.
 
-`[GET]/transactions` - endpoint onde serão listadas as informações das transações realizadas entre os pacientes e as farmácias. Quando a autenticação é realizada de maneira correta, ele retorna dados no formato JSON com ID do paciente, nome do paciente, sobrenome do paciente, data de nascimento do paciente, ID da farmácia, nome da farmácia, cidade da farmácia, ID da transação, quantidade da transação e data da transação.
+`[GET]/transactions` - Endpoint onde serão listadas as informações das transações realizadas entre os pacientes e as farmácias. Se autenticada de maneira correta, ele retorna dados no formato JSON com ID do paciente, nome do paciente, sobrenome do paciente, data de nascimento do paciente, ID da farmácia, nome da farmácia, cidade da farmácia, ID da transação, quantidade da transação e data da transação.
 
 # Como executar a API localmente
 Para executar a API localmente é necessário ter instalado:
@@ -75,19 +75,19 @@ Para facilitar a interação com os endpoints do projeto, recomenda-se que o sof
   - Opcional: adicionar os parâmetros `pa_first_name` e `ph_name` para realizar a busca no endpoint `/transactions`, respectivamente por meio do nome do paciente e do nome da farmácia. O endereço ficará `http://127.0.0.1:5000/transactions?token=&pa_first_name=&ph_name=`. O valor para o nome do paciente procurado deve ser adicionado após `&pa_first_name=` e o valor para o nome da farmácia procurada deve ser adicionado após `&ph_name=`.
 
 # Comandos via linha de comando
-A REST API também permite que alguns comandos customizados sejam executados via linha de comando. Eles foram criados para facilitar no desenvolvimento do projeto e facilitar a utilização do serviço local.
+A REST API também permite que alguns comandos customizados sejam executados via linha de comando. Eles foram criados para facilitar no desenvolvimento do projeto e a utilização do serviço local.
 - `flask endpoints` ou `docker-compose exec web flask endpoints` - Apresenta informações sobre os endpoints.
 
 - `flask about` ou `docker-compose exec web flask about`- Apresenta informações sobre o autor do projeto.
 
-- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask adduser --user admin --password teste_@dmin` ou `docker-compose exec web flask adduser --user admin --password teste_@dmin` adiciona o usuário admin com senha teste_@dmin na tabela USERS.
+- `flask adduser` ou `docker-compose exec web flask adduser` - Permite que dados de um novo usuário (username e passworld) sejam inseridos na tabela USER para serem usados para obtenção de um token jwt. O comando também aceita parâmetros opcionais. Por exemplo, o comando `flask adduser --user admin --password teste_@dmin` ou `docker-compose exec web flask adduser --user admin --password teste_@dmin` adiciona o usuário admin com senha teste_@dmin na tabela USERS.
 
 # Como executar os casos de teste:
 Uma das formas de executar os casos de teste é executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest` ou mesmo analisando [a saída com nome Test de uma das instruções de teste executada no GitHub Actions](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8286975353?check_suite_focus=true). Diversos casos de teste foram desenvolvidos para o código da API e cobrem 98% [(observar saída Coverage do GitHub Actions)](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8286975353?check_suite_focus=true) de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
 
-- `coverage run -m pytest` ou `docker-compose exec web coverage run -m pytest` para medir a cobertura de códido realizada pelos casos de teste.
+- `coverage run -m pytest` ou `docker-compose exec web coverage run -m pytest` para medir a cobertura de código realizada pelos casos de teste.
 
 - `coverage report` ou  `docker-compose exec web coverage report` para ver o relatório de cobertura via linha de comando.
 
 # Considerações finais
-Para garantir que o código do projeto se adequasse aos padrões e estilo de código sugeridos pela comunidade, foi utilizado o [Pylint](https://github.com/PyCQA/pylint). Também gostaria de agradecer a [empresa Bluestorm](https://www.bluestorm.com.br/) pelo gratificante desafio.
+Para garantir que o código do projeto se adequasse aos padrões e estilo sugeridos pela comunidade, foi utilizado o [Pylint](https://github.com/PyCQA/pylint). Também gostaria de agradecer a [empresa Bluestorm](https://www.bluestorm.com.br/) pelo gratificante desafio.
