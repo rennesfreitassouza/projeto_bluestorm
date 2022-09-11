@@ -86,7 +86,7 @@ A REST API também permite que alguns comandos customizados sejam executados via
 
 
 # Como executar os casos de teste:
-Uma das formas de executar os casos de teste é executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest` ou mesmo analisando [a saída com nome Test de uma das instruções de teste executada no GitHub Actions](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288049797?check_suite_focus=true). Diversos casos de teste foram desenvolvidos para o código da API e cobrem 94% [(observar saída Coverage do GitHub Actions)](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288049797?check_suite_focus=true) de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
+Uma das formas de executar os casos de teste é executar o pytest no diretório raiz com `pytest -vv` ou via docker compose `docker-compose exec web pytest` ou mesmo analisando [a saída com nome Test de uma das instruções de teste executada no GitHub Actions](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288337881?check_suite_focus=true). Diversos casos de teste foram desenvolvidos para o código da API e cobrem 94% [(observar saída Coverage do GitHub Actions)](https://github.com/rennesfreitassouza/projeto_bluestorm/runs/8288337881?check_suite_focus=true) de todo o código que foi desenvolvido para o projeto. Alguns comandos úteis:
 
 - `coverage run -m pytest` ou `docker-compose exec web coverage run -m pytest` para medir a cobertura de código realizada pelos casos de teste.
 
